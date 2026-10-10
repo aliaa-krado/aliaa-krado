@@ -6,11 +6,11 @@ A dark-first, motion-rich personal portfolio for a QA Specialist, built with
 ## Highlights
 
 - **Hero** — masked word-reveal headline, pointer-follow spotlight, magnetic CTAs, and a looping
-  animated Playwright test run in a terminal window.
+  animated illustrative QA checklist in a terminal-style window.
 - **About** — words brighten as you scroll (scrubbed ScrollTrigger), animated counters, education card, CV download.
 - **Skills** — bento grid of cursor-tracking spotlight cards, top skills highlighted, infinite tool marquee.
 - **Experience** — timeline whose rail fills as you scroll; milestones light up as you reach them.
-- **Projects** — pinned horizontal-scroll gallery on desktop (stacked on mobile), 3D tilt, highlighted code.
+- **Projects** — selected client work with three featured entries, public product previews, platform filters, and website/app-store links.
 - **Contact** — floating-label form with inline validation, copy-email button, Formspree or mailto delivery.
 - Dark mode by default + light theme toggle (no flash), scroll progress bar, hide-on-scroll nav, mobile menu.
 - Accessible: semantic landmarks, skip link, visible focus, `prefers-reduced-motion` fully respected
@@ -21,8 +21,8 @@ A dark-first, motion-rich personal portfolio for a QA Specialist, built with
 Everything lives in **`src/data/portfolio.ts`** — profile, socials, about, skills, experience, education and projects.
 
 - Add your GitHub URL to `profile.socials.github` to show the GitHub icon.
-- The **projects** are drafted from themes in the CV — replace them with real work and fill in `links[].href`
-  (empty links are hidden).
+- The **projects** contain selected real work, ordered by platform breadth and product complexity.
+  Previews live in `public/projects`; internal apps show an access-restricted visual instead.
 - `public/Aliaa-Krado-CV.pdf` powers the "Download CV" button.
 
 ## Run locally

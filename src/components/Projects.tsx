@@ -1,140 +1,78 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
-import { ArrowUpRight, CheckCircle } from "@phosphor-icons/react";
-import { gsap, useGSAP, MOTION_OK } from "@/lib/gsap";
+import { useRef, useState } from "react";
+import Image from "next/image";
+import { ArrowUpRight, Globe, DeviceMobile, Cube, SquaresFour, LockKey, Train } from "@phosphor-icons/react";
+import { gsap, useGSAP, MOTION_OK, ScrollTrigger } from "@/lib/gsap";
 import { projects, type Project } from "@/data/portfolio";
 import SectionHeading from "./ui/SectionHeading";
-import Spotlight from "./ui/Spotlight";
 
-/** Tiny, dependency-free highlighter for the illustrative snippets. */
-function highlight(code: string): ReactNode[] {
-  const re =
-    /(\/\/.*$)|("(?:[^"\\]|\\.)*")|\b(await|async|const|return|expect|test)\b|\b(\d+)\b|(\.\w+)(?=\()/gm;
-  const out: ReactNode[] = [];
-  let last = 0;
-  let m: RegExpExecArray | null;
-  let k = 0;
-  while ((m = re.exec(code))) {
-    if (m.index > last) out.push(code.slice(last, m.index));
-    const [tok] = m;
-    const cls = m[1]
-      ? "text-subtle italic"
-      : m[2]
-        ? "text-accent"
-        : m[3]
-          ? "text-accent-2"
-          : m[4]
-            ? "text-[#f0abfc]"
-            : "text-fg";
-    out.push(
-      <span key={k++} className={cls}>
-        {tok}
-      </span>
-    );
-    last = m.index + tok.length;
-  }
-  out.push(code.slice(last));
-  return out;
+const filters = [
+  { id: "all", label: "All projects", icon: SquaresFour },
+  { id: "web", label: "Web", icon: Globe },
+  { id: "mobile", label: "Mobile", icon: DeviceMobile },
+  { id: "vr", label: "VR", icon: Cube },
+] as const;
+type Filter = (typeof filters)[number]["id"];
+
+function matches(project: Project, filter: Filter) {
+  return filter === "all" || project.category.toLowerCase().includes(filter);
 }
 
-function ProjectCard({ p, i }: { p: Project; i: number }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  // Subtle 3D tilt that follows the pointer.
-  useGSAP(
-    () => {
-      gsap.matchMedia().add(`${MOTION_OK} and (hover: hover)`, () => {
-        const el = cardRef.current!;
-        const rx = gsap.quickTo(el, "rotationX", { duration: 0.6, ease: "power3" });
-        const ry = gsap.quickTo(el, "rotationY", { duration: 0.6, ease: "power3" });
-        const move = (e: PointerEvent) => {
-          const r = el.getBoundingClientRect();
-          ry(((e.clientX - r.left) / r.width - 0.5) * 6);
-          rx(-((e.clientY - r.top) / r.height - 0.5) * 6);
-        };
-        const leave = () => {
-          rx(0);
-          ry(0);
-        };
-        el.addEventListener("pointermove", move);
-        el.addEventListener("pointerleave", leave);
-        return () => {
-          el.removeEventListener("pointermove", move);
-          el.removeEventListener("pointerleave", leave);
-        };
-      });
-    },
-    { scope: cardRef }
-  );
-
-  const links = p.links.filter((l) => l.href);
-
+function ProjectLinks({ project }: { project: Project }) {
+  if (project.internal) {
+    return <span className="inline-flex items-center gap-2 text-sm text-subtle"><LockKey size={16} aria-hidden />Internal staff app</span>;
+  }
   return (
-    <article data-project className="[perspective:1400px] lg:motion-safe:w-[min(560px,42vw)] lg:motion-safe:shrink-0" aria-labelledby={`project-${i}`}>
-      <div ref={cardRef} className="h-full [transform-style:preserve-3d]">
-        <Spotlight className="group flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-surface">
-          {/* code visual */}
-          <div className="relative border-b border-line bg-bg/60 p-5 sm:p-6">
-            <div className="mb-4 flex items-center justify-between">
-              <span className="font-mono text-xs text-subtle">
-                {String(i + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
-              </span>
-              <span className="rounded-full border border-line px-2.5 py-0.5 font-mono text-[11px] text-muted">
-                {p.kicker}
-              </span>
-            </div>
-            <pre
-              aria-hidden
-              className="overflow-x-auto font-mono text-[11px] leading-[1.7] whitespace-pre text-muted [mask-image:linear-gradient(to_right,#000_88%,transparent)] [scrollbar-width:none] sm:text-[12.5px]"
-            >
-              <code>{highlight(p.snippet)}</code>
-            </pre>
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-surface/80 to-transparent" />
-          </div>
+    <div className="flex flex-wrap gap-x-5 gap-y-2">
+      {project.links.map((link) => (
+        <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer"
+          aria-label={`${project.title}: ${link.label} (opens in a new tab)`}
+          className="group/link inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-fg transition-colors hover:text-accent">
+          {link.label}<ArrowUpRight size={16} aria-hidden className="transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+        </a>
+      ))}
+    </div>
+  );
+}
 
-          <div className="flex flex-1 flex-col p-6 sm:p-8">
-            <h3 id={`project-${i}`} className="text-2xl font-semibold tracking-tight sm:text-[1.7rem]">
-              {p.title}
-            </h3>
-            <p className="mt-3 leading-relaxed text-muted">{p.description}</p>
+function ProjectVisual({ project, featured }: { project: Project; featured: boolean }) {
+  return (
+    <div className={`relative overflow-hidden rounded-lg border border-line bg-elev ${featured ? "aspect-[16/10]" : "aspect-[16/10] w-full"}`}>
+      {project.image ? (
+        <Image src={project.image} alt={`${project.title} public ${project.id === "fanr" ? "app listing" : "website"} preview`}
+          fill sizes={featured ? "(min-width: 1024px) 560px, (min-width: 768px) 50vw, 100vw" : "(min-width: 768px) 200px, 100vw"}
+          className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.025]" />
+      ) : (
+        <div className="flex h-full flex-col justify-between bg-surface p-6 sm:p-9">
+          <span className="flex items-center gap-2 text-sm text-subtle"><LockKey size={16} aria-hidden />Staff access only</span>
+          <div className="flex items-center gap-4 text-fg"><Train size={48} weight="light" aria-hidden /><span className="text-3xl font-medium">Etihad Rail</span></div>
+          <span className="text-sm text-muted">Internal operations application</span>
+        </div>
+      )}
+    </div>
+  );
+}
 
-            <ul className="mt-6 space-y-2.5">
-              {p.highlights.map((h) => (
-                <li key={h} className="flex gap-2.5 text-[15px] text-muted">
-                  <CheckCircle size={18} weight="fill" className="mt-0.5 shrink-0 text-accent" aria-hidden />
-                  {h}
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-auto flex flex-wrap items-end justify-between gap-4 pt-8">
-              <ul className="flex flex-wrap gap-2" aria-label="Tech stack">
-                {p.tags.map((t) => (
-                  <li key={t} className="rounded-md border border-line bg-elev px-2.5 py-1 font-mono text-xs text-muted">
-                    {t}
-                  </li>
-                ))}
-              </ul>
-              {links.length > 0 && (
-                <div className="flex gap-2">
-                  {links.map((l) => (
-                    <a
-                      key={l.label}
-                      href={l.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-full border border-line-strong px-4 text-sm font-medium transition-all duration-300 hover:border-accent hover:text-accent"
-                    >
-                      {l.label}
-                      <ArrowUpRight size={14} weight="bold" aria-hidden />
-                    </a>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        </Spotlight>
+function ProjectEntry({ project, index, featured }: { project: Project; index: number; featured: boolean }) {
+  return (
+    <article data-project aria-labelledby={`project-${project.id}`}
+      className={`group grid min-w-0 gap-6 border-t border-line py-8 md:gap-10 ${featured ? "md:grid-cols-2 md:items-center md:py-12" : "md:grid-cols-[200px_minmax(0,1fr)] md:py-7"}`}>
+      <div className={featured ? "md:order-2" : ""}><ProjectVisual project={project} featured={featured} /></div>
+      <div className="min-w-0">
+        <div className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-muted">
+          <span className="font-mono text-subtle">{String(index + 1).padStart(2, "0")}</span>
+          <span className="h-3 w-px bg-line-strong" aria-hidden />
+          <span>{project.sector}</span>
+          {project.engagement && <span className="rounded border border-accent/30 px-2 py-0.5 text-accent">{project.engagement}</span>}
+        </div>
+        <h3 id={`project-${project.id}`} className={`font-semibold leading-tight ${featured ? "text-3xl sm:text-4xl" : "text-2xl"}`}>{project.title}</h3>
+        <p className={`mt-3 max-w-[65ch] leading-relaxed text-muted ${featured ? "text-base sm:text-lg" : "text-base"}`}>{project.description}</p>
+        <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-subtle" aria-label="Product scope">
+          <span className="font-medium text-accent">{project.category}</span>
+          {project.features.map((feature) => <span key={feature} className="inline-flex items-center gap-3"><span aria-hidden className="size-1 rounded-full bg-line-strong" />{feature}</span>)}
+        </div>
+        <div className="mt-5"><ProjectLinks project={project} /></div>
       </div>
     </article>
   );
@@ -142,90 +80,43 @@ function ProjectCard({ p, i }: { p: Project; i: number }) {
 
 export default function Projects() {
   const ref = useRef<HTMLElement>(null);
+  const [filter, setFilter] = useState<Filter>("all");
+  const visible = projects.filter((project) => matches(project, filter));
 
-  useGSAP(
-    () => {
-      const mm = gsap.matchMedia();
-
-      // Desktop: pin and scroll the cards horizontally.
-      mm.add(`${MOTION_OK} and (min-width: 1024px)`, () => {
-        const track = ref.current!.querySelector<HTMLElement>("[data-track]")!;
-        const pin = ref.current!.querySelector<HTMLElement>("[data-pin]")!;
-        const distance = () => track.scrollWidth - pin.clientWidth;
-
-        const tween = gsap.to(track, {
-          x: () => -distance(),
-          ease: "none",
-          scrollTrigger: {
-            trigger: pin,
-            start: "center center",
-            end: () => `+=${distance()}`,
-            pin: true,
-            scrub: 1,
-            invalidateOnRefresh: true,
-            onUpdate: (self) => {
-              gsap.set("[data-proj-progress]", { scaleX: self.progress });
-            },
-          },
-        });
-
-        gsap.from("[data-project]", {
-          opacity: 0,
-          x: 120,
-          duration: 1.2,
-          ease: "expo.out",
-          stagger: 0.1,
-          scrollTrigger: { trigger: pin, start: "top 80%" },
-        });
-
-        return () => tween.kill();
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+    mm.add(MOTION_OK, () => {
+      gsap.utils.toArray<HTMLElement>("[data-project]", ref.current!).forEach((entry) => {
+        gsap.from(entry, { y: 24, opacity: 0, duration: 0.65, ease: "power3.out", scrollTrigger: { trigger: entry, start: "top 94%", once: true } });
       });
-
-      // Mobile / tablet: simple stacked reveal.
-      mm.add(`${MOTION_OK} and (max-width: 1023px)`, () => {
-        gsap.utils.toArray<HTMLElement>("[data-project]").forEach((el) => {
-          gsap.from(el, {
-            y: 60,
-            opacity: 0,
-            duration: 1,
-            ease: "expo.out",
-            scrollTrigger: { trigger: el, start: "top 88%" },
-          });
-        });
-      });
-    },
-    { scope: ref }
-  );
+    });
+    ScrollTrigger.refresh();
+  }, { scope: ref, dependencies: [filter], revertOnUpdate: true });
 
   return (
     <section ref={ref} id="projects" aria-labelledby="projects-title" className="relative py-28 md:py-40">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <SectionHeading
-          id="projects-title"
-          index="04"
-          label="Selected Work"
-          title="Featured projects & case studies."
-          intro="How I approach quality in practice — from automated end-to-end suites to API contracts, mobile coverage, and AI-assisted test authoring."
-        />
-      </div>
-
-      <div data-pin className="relative lg:motion-safe:overflow-hidden">
-        <div
-          data-track
-          className="mx-auto grid max-w-6xl gap-5 px-5 sm:px-8 md:grid-cols-2 lg:motion-safe:mx-0 lg:motion-safe:flex lg:motion-safe:w-max lg:motion-safe:max-w-none lg:motion-safe:gap-6 lg:motion-safe:px-[max(2rem,calc((100vw-72rem)/2+2rem))]"
-        >
-          {projects.map((p, i) => (
-            <ProjectCard key={p.title} p={p} i={i} />
-          ))}
+        <SectionHeading id="projects-title" index="04" label="Selected Projects" title="Projects I've worked on."
+          intro="A selection from my QA work across digital platforms, from public websites and commerce to mobile apps and immersive experiences." />
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-4">
+          <div role="group" aria-label="Filter projects by platform" className="flex max-w-full flex-wrap gap-1 rounded-lg border border-line bg-surface p-1">
+            {filters.map(({ id, label, icon: Icon }) => (
+              <button key={id} type="button" aria-pressed={filter === id} onClick={() => setFilter(id)}
+                className={`inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-md px-3 text-sm transition-colors sm:px-4 ${filter === id ? "bg-accent text-accent-fg" : "text-muted hover:bg-elev hover:text-fg"}`}>
+                <Icon size={16} aria-hidden />{label}
+                <span className={`text-xs ${filter === id ? "opacity-70" : "text-subtle"}`}>{projects.filter((project) => matches(project, id)).length}</span>
+              </button>
+            ))}
+          </div>
+          <p role="status" aria-live="polite" className="text-sm text-subtle">{visible.length} selected {visible.length === 1 ? "project" : "projects"}</p>
         </div>
-
-        <div aria-hidden className="mx-auto mt-10 hidden max-w-6xl items-center gap-4 px-8 lg:motion-safe:flex">
-          <span className="font-mono text-xs text-subtle">Scroll</span>
-          <span className="h-px flex-1 overflow-hidden bg-line">
-            <span data-proj-progress className="block h-full origin-left scale-x-0 bg-accent" />
-          </span>
-          <span className="font-mono text-xs text-subtle">{String(projects.length).padStart(2, "0")}</span>
+        <div>
+          {visible.map((project) => {
+            const index = projects.indexOf(project);
+            return <ProjectEntry key={project.id} project={project} index={index} featured={index < 3} />;
+          })}
         </div>
+        <p className="border-t border-line pt-6 text-sm text-subtle">Selected work from a broader portfolio of projects.</p>
       </div>
     </section>
   );

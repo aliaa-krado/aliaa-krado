@@ -224,96 +224,152 @@ export const education = {
 };
 
 export type Project = {
+  id: string;
   title: string;
-  kicker: string;
+  category: "Web & Mobile" | "Mobile & VR" | "Mobile" | "Web";
+  sector: string;
   description: string;
-  highlights: string[];
-  tags: string[];
-  links: { label: string; href: string }[];
-  /** Short illustrative code shown on the card. */
-  snippet: string;
+  features: string[];
+  image?: string;
+  engagement?: "Freelance";
+  internal?: boolean;
+  links: { label: "Website" | "App Store" | "Google Play"; href: string }[];
 };
 
-/**
- * Selected work. These case studies are drafted from the themes on the CV —
- * replace them with your real projects and add repo / demo links.
- * Links with an empty href are hidden automatically.
- */
+/** Selected real projects, ordered by platform breadth and product complexity. */
 export const projects: Project[] = [
   {
-    title: "Playwright E2E Automation Suite",
-    kicker: "Test Automation",
+    id: "sibf",
+    title: "Sharjah International Book Fair",
+    category: "Web & Mobile",
+    sector: "Culture & Events",
     description:
-      "An end-to-end test framework in TypeScript and Playwright that turns critical user journeys into fast, repeatable checks across Chromium, Firefox, and WebKit.",
-    highlights: [
-      "Reusable page objects and fixtures keep specs short and readable",
-      "Cross-browser projects run the same journeys on every engine",
-      "Trace viewer and screenshots on failure for instant debugging",
-    ],
-    tags: ["Playwright", "TypeScript", "VS Code", "E2E"],
+      "A unified website and native mobile apps for visitors, exhibitors, and publishers, bringing the book fair's digital experience together across languages and platforms.",
+    features: ["Multilingual experience", "Multiple user audiences", "Website & native apps"],
+    image: "/projects/sibf.jpg",
     links: [
-      { label: "Source", href: "" },
-      { label: "Report", href: "" },
+      { label: "Website", href: "https://sibf.com/" },
+      { label: "App Store", href: "https://apps.apple.com/ae/app/sibf-25/id1585104689" },
+      { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.sba&hl=en" },
     ],
-    snippet: `test("checkout applies discount", async ({ page }) => {
-  await page.goto("/cart");
-  await page.getByLabel("Promo code").fill("SAVE10");
-  await expect(page.getByTestId("total")).toHaveText("$90.00");
-});`,
   },
   {
-    title: "API Test & Contract Checks",
-    kicker: "API Testing",
+    id: "fanr",
+    title: "FANR Immerse",
+    category: "Mobile & VR",
+    sector: "Government & Public Awareness",
     description:
-      "Automated REST API verification covering status codes, payload structure, edge cases, and error handling — so integrations fail in CI, not in production.",
-    highlights: [
-      "Positive, negative, and boundary cases for every endpoint",
-      "Response schema validation to catch breaking changes early",
-      "Shared auth and data setup reused by UI tests",
+      "An immersive experience for the Federal Authority for Nuclear Regulation. Built with Unreal Engine, the bilingual VR and mobile application introduces nuclear regulation and radiation safety through interactive learning.",
+    features: ["VR & mobile platforms", "Bilingual content", "Interactive learning"],
+    image: "/projects/fanr.jpg",
+    links: [
+      { label: "App Store", href: "https://apps.apple.com/ae/app/fanr-immerse/id6739451759" },
+      { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.uae.fanrue&hl=en" },
     ],
-    tags: ["API Testing", "Playwright", "REST", "JSON"],
-    links: [{ label: "Source", href: "" }],
-    snippet: `const res = await request.get("/api/users/42");
-expect(res.status()).toBe(200);
-expect(await res.json()).toMatchObject({
-  id: 42, email: expect.any(String),
-});`,
   },
   {
-    title: "Mobile App Quality Program",
-    kicker: "Mobile Testing",
+    id: "etihad",
+    title: "Etihad Rail",
+    category: "Mobile",
+    sector: "Transport & Operations",
     description:
-      "A structured mobile testing approach for iOS and Android releases, combining functional test plans with exploratory sessions on real devices.",
-    highlights: [
-      "Device and OS coverage matrix for each release",
-      "Regression checklists for critical flows",
-      "Clear, reproducible bug reports with steps, logs, and media",
-    ],
-    tags: ["Mobile Testing", "iOS", "Android", "Regression"],
+      "An internal mobile application for staff at the UAE's national railway network, supporting train staff management, daily operations, safety checks, and real-time reporting.",
+    features: ["Staff operations", "Safety check workflows", "Real-time reporting"],
+    internal: true,
     links: [],
-    snippet: `projects: [
-  { name: "iPhone 15", use: devices["iPhone 15"] },
-  { name: "Pixel 7",   use: devices["Pixel 7"] },
-  { name: "iPad",      use: devices["iPad Pro 11"] },
-]`,
   },
   {
-    title: "AI-Assisted Test Authoring",
-    kicker: "AI Workflow",
+    id: "sorbonne",
+    title: "Sorbonne University Abu Dhabi",
+    category: "Web",
+    sector: "Higher Education",
     description:
-      "A workflow that pairs Codex with Playwright to draft, refactor, and extend test scripts faster — keeping the human focused on test design and edge cases.",
-    highlights: [
-      "Generate first drafts of specs from manual test cases",
-      "Refactor flaky or duplicated steps into shared helpers",
-      "Spot untested paths to push coverage further",
+      "A unified academic website connecting students, faculty, and administration with programs, events, research, and resources in English, Arabic, and French.",
+    features: ["Three languages", "Academic resources", "Multiple user audiences"],
+    image: "/projects/sorbonne.jpg",
+    links: [{ label: "Website", href: "https://www.sorbonne.ae/" }],
+  },
+  {
+    id: "hatlak",
+    title: "HatlakDeals",
+    category: "Web & Mobile",
+    sector: "Marketplace",
+    description:
+      "A buying and selling marketplace available on the web, iOS, and Android, designed to make product discovery and trading straightforward and welcoming. A freelance project I worked on.",
+    features: ["Buying & selling", "Product discovery", "Website & mobile apps"],
+    image: "/projects/hatlak.jpg",
+    engagement: "Freelance",
+    links: [
+      { label: "Website", href: "https://hatlakdeals.com/" },
+      { label: "App Store", href: "https://apps.apple.com/us/app/hatlakdeals-%D9%87%D8%A7%D8%AA%D9%84%D9%83-%D8%AF%D9%8A%D9%84%D8%B2/id6753316474" },
+      { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.arbach.hatlakdeals&hl=en&pli=1" },
     ],
-    tags: ["Codex", "TypeScript", "Playwright", "AI"],
-    links: [],
-    snippet: `// codex ▸ draft spec from TC-142 "Reset password"
-test("user can reset password", async ({ page }) => {
-  await resetFlow.request(page, user.email);
-  await expect(page.getByRole("alert")).toBeVisible();
-});`,
+  },
+  {
+    id: "hatta",
+    title: "Hatta Honey",
+    category: "Web",
+    sector: "E-commerce",
+    description:
+      "A complete e-commerce relaunch for a UAE honey producer, serving wholesale and retail customers through product browsing, online ordering, and customer engagement.",
+    features: ["Retail & wholesale", "Online ordering", "Product catalog"],
+    image: "/projects/hatta.jpg",
+    links: [{ label: "Website", href: "https://www.hattahoney.ae/" }],
+  },
+  {
+    id: "mirage",
+    title: "Mirage Rent A Car",
+    category: "Web",
+    sector: "Vehicle Rental",
+    description:
+      "A luxury car rental portal for a UAE brand, allowing customers to explore vehicles and book online through a journey from vehicle selection to checkout.",
+    features: ["Vehicle discovery", "Online booking", "Checkout journey"],
+    image: "/projects/mirage.jpg",
+    links: [{ label: "Website", href: "https://miragerentcar.com/" }],
+  },
+  {
+    id: "rabdan",
+    title: "Rabdan Academy",
+    category: "Web",
+    sector: "Education & Government",
+    description:
+      "A redesigned website for a government-owned academy specialising in safety, security, defence, and crisis management, improving information access for students, staff, and international applicants.",
+    features: ["Information access", "Student & staff audiences", "Academic content"],
+    image: "/projects/rabdan.jpg",
+    links: [{ label: "Website", href: "https://ra.ac.ae/" }],
+  },
+  {
+    id: "alkabeer",
+    title: "Al Kabeer Group",
+    category: "Web",
+    sector: "Food & B2B",
+    description:
+      "A product discovery platform for a frozen food manufacturer, combining e-commerce-style browsing with detailed product information, B2B inquiries, and store location.",
+    features: ["Product discovery", "B2B inquiries", "Store locator"],
+    image: "/projects/alkabeer.jpg",
+    links: [{ label: "Website", href: "https://al-kabeer.com/" }],
+  },
+  {
+    id: "mediaworld",
+    title: "Media World",
+    category: "Web",
+    sector: "Advertising",
+    description:
+      "A distinctive website for a UAE outdoor and digital advertising company, giving visitors an engaging way to explore advertising locations, formats, and services.",
+    features: ["Advertising locations", "Format discovery", "Distinctive navigation"],
+    image: "/projects/mediaworld.jpg",
+    links: [{ label: "Website", href: "https://mediaworld.ae/" }],
+  },
+  {
+    id: "mediaturtles",
+    title: "Media Turtles",
+    category: "Web",
+    sector: "Creative Ventures",
+    description:
+      "A corporate website for a creative venture builder, showcasing its vision, ventures, and market presence through engaging digital storytelling.",
+    features: ["Venture showcase", "Corporate content", "Digital storytelling"],
+    image: "/projects/mediaturtles.jpg",
+    links: [{ label: "Website", href: "https://mediaturtles.net/" }],
   },
 ];
 
