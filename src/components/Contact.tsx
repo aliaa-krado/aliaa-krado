@@ -197,8 +197,8 @@ export default function Contact() {
           {/* details */}
           <div data-contact-fade className="flex flex-col gap-4">
             <p className="max-w-md text-lg leading-relaxed text-muted">
-              Whether you need a QA engineer on your team, a second pair of eyes before launch, or help
-              bringing automation into your workflow — I&apos;d love to hear from you.
+              Whether you need a QA specialist on your team, a second pair of eyes before launch, or support
+              with manual, API, and mobile testing, I&apos;d love to hear from you.
             </p>
 
             <Spotlight className="mt-4 rounded-3xl border border-line bg-surface p-2">

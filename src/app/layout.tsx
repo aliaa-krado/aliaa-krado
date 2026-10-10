@@ -22,9 +22,9 @@ export const metadata: Metadata = {
   keywords: [
     "QA Engineer",
     "Quality Assurance",
-    "Playwright",
-    "TypeScript",
-    "Test Automation",
+    "Manual Testing",
+    "Functional Testing",
+    "Regression Testing",
     "API Testing",
     "Mobile Testing",
     profile.name,

@@ -51,7 +51,7 @@ export default function Experience() {
           index="03"
           label="Experience"
           title="A career built on getting the details right."
-          intro="From customer service to quality control, team leadership, and modern test automation — each role sharpened how I think about users and reliability."
+          intro="From customer service to quality control, team leadership, and software testing, each role sharpened how I think about users and reliability."
         />
 
         <ol data-timeline className="relative">

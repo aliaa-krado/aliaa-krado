@@ -42,9 +42,9 @@ export default function Skills() {
         <SectionHeading
           id="skills-title"
           index="02"
-          label="Expertise"
-          title="Core skills, from first test case to automated suite."
-          intro="A foundation in rigorous manual and API testing, now accelerated with TypeScript, Playwright, and AI-assisted workflows."
+          label="Skills"
+          title="A strong foundation in software quality."
+          intro="Thoughtful test design, clear documentation, and close collaboration with development teams."
         />
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

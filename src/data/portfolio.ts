@@ -16,7 +16,7 @@ export const profile = {
   yearsOfExperience: 4,
   headline: ["Shipping", "software", "you can", "trust."],
   valueProp:
-    "QA Specialist with 4+ years of turning requirements into reliable, well-tested products — from meticulous manual and API testing to automated suites in TypeScript & Playwright.",
+    "QA Specialist with 4+ years of experience in manual, functional, API, and mobile testing, helping teams deliver reliable products through thoughtful test design and clear defect reporting.",
   socials: {
     // Add your GitHub profile URL here to show the GitHub icon.
     github: "",
@@ -29,10 +29,10 @@ export const profile = {
 
 export const about = {
   heading: "Quality isn’t a phase. It’s a mindset.",
-  body: "I’m a passionate Quality Assurance Engineer with over four years of hands-on experience ensuring software excellence, reliability, and top-tier user experiences. My foundation is meticulous manual testing, functional verification, and API testing — backed by a strong track record leading team workflows and managing quality standards. Driven by how fast technology evolves, I’m expanding from manual testing into modern test automation: I design and implement automated test scripts with TypeScript and Playwright inside VS Code, and use AI tools like Codex to move faster and push test coverage further.",
+  body: "I’m a Quality Assurance Specialist with over four years of experience helping teams deliver reliable software. I’ve worked on a variety of projects across Syria, the UAE, and Saudi Arabia. I focus on understanding requirements, designing useful test cases, and documenting defects clearly. My experience also includes leading team workflows and maintaining quality standards. Alongside this work, I’m currently learning test automation with Playwright and building on my basic knowledge of TypeScript through personal practice.",
   stats: [
     { value: 4, suffix: "+", label: "Years in quality assurance" },
-    { value: 5, suffix: "", label: "Roles across tech & telecom" },
+    { value: 4, suffix: "", label: "Roles across tech & telecom" },
     { value: 4, suffix: "", label: "Organisations served" },
     { value: 2018, suffix: "", label: "Career started", noCount: true },
   ],
@@ -46,8 +46,8 @@ export type SkillGroup = {
   skills: string[];
 };
 
-/** Skills flagged as "Top Skills" on the CV get a highlight badge. */
-export const topSkills = ["Playwright", "Mobile Testing", "Microsoft Azure"];
+/** Established strengths get a highlight badge. */
+export const topSkills = ["Manual Testing", "API Testing", "Mobile Testing"];
 
 export const skillGroups: SkillGroup[] = [
   {
@@ -59,6 +59,7 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       "Manual Testing",
       "Functional Testing",
+      "Performance Testing",
       "API Testing",
       "Mobile Testing",
       "Regression Testing",
@@ -68,19 +69,21 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
-    id: "automation",
-    title: "Test Automation",
-    description:
-      "Turning repeatable checks into fast, reliable automated suites.",
-    icon: "automation",
-    skills: ["Playwright", "TypeScript", "E2E Automation", "Test Scripting"],
-  },
-  {
     id: "tools",
     title: "Tools & Platforms",
-    description: "The environment I build and ship tests in.",
+    description: "Tools that support my testing and day-to-day QA work.",
     icon: "tools",
-    skills: ["VS Code", "Microsoft Azure", "Codex (AI)", "Cross-browser"],
+    skills: [
+      "Jira",
+      "Postman",
+      "Swagger",
+      "JMeter",
+      "VS Code",
+      "Microsoft Azure",
+      "Claude (AI)",
+      "Codex (AI)",
+      "Cross-browser",
+    ],
   },
   {
     id: "leadership",
@@ -96,16 +99,24 @@ export const skillGroups: SkillGroup[] = [
       "Customer Focus",
     ],
   },
+  {
+    id: "automation",
+    title: "Currently Learning",
+    description:
+      "Exploring test automation through personal practice, with no professional automation experience yet.",
+    icon: "automation",
+    skills: ["Playwright (Learning)", "TypeScript (Basic Knowledge)"],
+  },
 ];
 
 export const marqueeTools = [
-  "Playwright",
-  "TypeScript",
+  "Manual Testing",
+  "Test Case Design",
   "API Testing",
   "Mobile Testing",
   "Microsoft Azure",
   "VS Code",
-  "Codex",
+  "Bug Reporting",
   "Functional Testing",
   "Regression",
   "Quality Standards",
@@ -129,6 +140,7 @@ export type Job = {
 export const experience: Job[] = [
   {
     company: "PLAN A Agency",
+    location: "Dubai, United Arab Emirates",
     current: true,
     roles: [
       {
@@ -137,22 +149,22 @@ export const experience: Job[] = [
         duration: "3 yrs 5 mos",
         points: [
           "Own end-to-end quality for client products, from requirement review through release sign-off.",
-          "Design and implement automated test scripts in TypeScript with Playwright inside VS Code.",
-          "Use AI tooling such as Codex to accelerate test authoring and widen coverage.",
+          "Design manual test cases based on requirements and critical user journeys.",
+          "Document defects, verify fixes, and communicate testing results to the team.",
           "Run functional, regression, mobile, and API testing with clear, reproducible defect reports.",
         ],
       },
     ],
-    tags: ["Playwright", "TypeScript", "API Testing", "Mobile Testing", "Codex"],
+    tags: ["Manual Testing", "Functional Testing", "API Testing", "Mobile Testing"],
   },
   {
     company: "TechnoWave",
     location: "Damascus, Syria",
     roles: [
       {
-        title: "Quality Assurance Engineer",
-        period: "Mar 2021 — May 2023",
-        duration: "2 yrs 3 mos",
+        title: "Quality Assurance Specialist",
+        period: "May 2022 — May 2023",
+        duration: "1 yr",
         points: [
           "Executed manual and functional test cycles across web and mobile releases.",
           "Verified APIs and integrations — validating responses, edge cases, and error handling.",
@@ -160,7 +172,7 @@ export const experience: Job[] = [
         ],
       },
     ],
-    tags: ["Manual Testing", "Functional Testing", "API Testing"],
+    tags: ["Manual Testing", "Functional Testing", "API Testing", "Mobile Testing"],
   },
   {
     company: "Syrian Telecom",
@@ -184,11 +196,11 @@ export const experience: Job[] = [
     location: "Damascus, Syria",
     roles: [
       {
-        title: "Quality Assurance & Quality Control",
+        title: "Quality Control",
         period: "Apr 2019 — Mar 2020",
         duration: "1 yr",
         points: [
-          "Applied QA/QC procedures to telecom services against defined quality standards.",
+          "Applied QC procedures to telecom services against defined quality standards.",
           "Tracked issues, verified fixes, and documented findings for continuous improvement.",
         ],
       },
@@ -201,7 +213,7 @@ export const experience: Job[] = [
         ],
       },
     ],
-    tags: ["QA / QC", "Customer Service"],
+    tags: ["QC", "Customer Service"],
   },
 ];
 

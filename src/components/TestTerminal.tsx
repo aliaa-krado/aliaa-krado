@@ -4,18 +4,18 @@ import { useRef } from "react";
 import { gsap, useGSAP, MOTION_OK } from "@/lib/gsap";
 
 const tests = [
-  { spec: "auth.spec.ts", name: "logs in with valid credentials", ms: "1.2s" },
-  { spec: "checkout.spec.ts", name: "applies a discount code", ms: "842ms" },
-  { spec: "api.spec.ts", name: "GET /users returns 200 + schema", ms: "214ms" },
-  { spec: "mobile.spec.ts", name: "navigation drawer opens", ms: "903ms" },
-  { spec: "a11y.spec.ts", name: "home page has no violations", ms: "1.1s" },
-  { spec: "search.spec.ts", name: "filters results by category", ms: "678ms" },
+  { spec: "TC-01", name: "login with valid credentials" },
+  { spec: "TC-02", name: "checkout discount calculation" },
+  { spec: "TC-03", name: "API response and error handling" },
+  { spec: "TC-04", name: "mobile navigation" },
+  { spec: "TC-05", name: "required-field validation" },
+  { spec: "TC-06", name: "search and category filters" },
 ];
 
-const browsers = ["chromium", "firefox", "webkit"];
+const areas = ["manual", "API", "mobile"];
 
 /**
- * A decorative, looping Playwright run. Purely illustrative, hidden from
+ * A decorative, looping QA checklist. Purely illustrative, hidden from
  * assistive tech; under reduced motion it renders the finished state.
  */
 export default function TestTerminal() {
@@ -77,9 +77,9 @@ export default function TestTerminal() {
         <span className="size-3 rounded-full bg-[#ff5f57]" />
         <span className="size-3 rounded-full bg-[#febc2e]" />
         <span className="size-3 rounded-full bg-[#28c840]" />
-        <span className="ml-3 truncate font-mono text-xs text-subtle">~/qa/e2e — zsh</span>
+        <span className="ml-3 truncate font-mono text-xs text-subtle">QA review</span>
         <span className="ml-auto flex gap-1.5">
-          {browsers.map((b) => (
+          {areas.map((b) => (
             <span
               key={b}
               className="hidden rounded-md border border-line px-1.5 py-0.5 font-mono text-[10px] text-subtle sm:inline"
@@ -93,13 +93,13 @@ export default function TestTerminal() {
       <div className="space-y-2 p-5 font-mono text-[12.5px] leading-relaxed sm:text-[13px]">
         <p className="text-fg">
           <span className="text-accent">❯</span>{" "}
-          <span data-cmd data-text="npx playwright test --workers=3">
-            npx playwright test --workers=3
+          <span data-cmd data-text="Review release checklist">
+            Review release checklist
           </span>
           <span className="caret ml-0.5 inline-block h-4 w-2 translate-y-0.5 bg-accent/80" />
         </p>
         <p data-meta className="text-subtle">
-          Running {tests.length} tests using 3 workers
+          Sample checklist / {tests.length} test cases
         </p>
 
         <ul className="space-y-1.5 pt-1">
@@ -126,7 +126,6 @@ export default function TestTerminal() {
                 <span className="text-subtle sm:hidden">› </span>
                 {t.name}
               </span>
-              <span className="ml-auto shrink-0 text-subtle">{t.ms}</span>
             </li>
           ))}
         </ul>
@@ -138,9 +137,8 @@ export default function TestTerminal() {
         </div>
 
         <p data-summary className="flex items-center gap-2 pt-1">
-          <span className="rounded bg-accent px-1.5 py-0.5 text-[11px] font-semibold text-accent-fg">PASS</span>
-          <span className="text-accent">{tests.length} passed</span>
-          <span className="text-subtle">(4.9s)</span>
+          <span className="rounded bg-accent px-1.5 py-0.5 text-[11px] font-semibold text-accent-fg">REVIEWED</span>
+          <span className="text-accent">{tests.length} checks completed</span>
         </p>
       </div>
     </div>
