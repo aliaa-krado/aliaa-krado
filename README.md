@@ -1,66 +1,60 @@
-# Aliaa Krado — Portfolio
+# Hi there, I'm Aliaa Krado 👋
 
-A dark-first, motion-rich personal portfolio for a QA Specialist, built with
-**Next.js 16 (App Router)**, **Tailwind CSS v4**, **GSAP + ScrollTrigger**, **Motion** and **Lenis**.
+### 🧪 Quality Assurance Specialist & Test Automation Engineer
 
-## Highlights
+Dedicated and passionate Quality Assurance (QA) Engineer with over 4 years of experience ensuring software excellence, reliability, and top-tier user experiences. Skilled in meticulous manual testing, functional verification, API testing, and transitioning into modern test automation using Playwright, TypeScript, and AI tools.
 
-- **Hero** — masked word-reveal headline, pointer-follow spotlight, magnetic CTAs, and a looping
-  animated illustrative QA checklist in a terminal-style window.
-- **About** — words brighten as you scroll (scrubbed ScrollTrigger), animated counters, education card, CV download.
-- **Skills** — bento grid of cursor-tracking spotlight cards, top skills highlighted, infinite tool marquee.
-- **Experience** — timeline whose rail fills as you scroll; milestones light up as you reach them.
-- **Projects** — selected client work with three featured entries, public product previews, platform filters, and website/app-store links.
-- **Contact** — floating-label form with inline validation, copy-email button, Formspree or mailto delivery.
-- Dark mode by default + light theme toggle (no flash), scroll progress bar, hide-on-scroll nav, mobile menu.
-- Accessible: semantic landmarks, skip link, visible focus, `prefers-reduced-motion` fully respected
-  (all motion disabled, content rendered in its final state).
+---
 
-## Edit your content
+### 🛠️ Tech Stack & Skills
 
-Everything lives in **`src/data/portfolio.ts`** — profile, socials, about, skills, experience, education and projects.
+**Automation & Languages**
+![Playwright](https://img.shields.io/badge/Playwright-45BA4B?style=for-the-badge&logo=Playwright&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
-- Add your GitHub URL to `profile.socials.github` to show the GitHub icon.
-- The **projects** contain selected real work, ordered by platform breadth and product complexity.
-  Previews live in `public/projects`; internal apps show an access-restricted visual instead.
-- `public/Aliaa-Krado-CV.pdf` powers the "Download CV" button.
+**QA Tools & Environments**
+![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white)
+![Azure](https://img.shields.io/badge/Microsoft_Azure-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white)
+![VS Code](https://img.shields.io/badge/VS_Code-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 
-## Run locally
+---
 
-```bash
-npm install
-npm run dev
-```
+### 🌟 Core Capabilities
 
-Open http://localhost:3000.
+- 🔍 **Manual & Automated Testing:** Functional testing, UI/UX verification, and Mobile Testing.
+- 🤖 **Test Automation:** Designing automated test scripts leveraging TypeScript & Playwright.
+- 📡 **API Testing:** Validating and testing API endpoints using Postman.
+- ⚡ **AI-Enhanced QA Workflows:** Utilizing AI tools (like Codex) to maximize test efficiency and coverage.
+- 📋 **Process & Team Leadership:** Managing quality standards, team workflows, and e-citizen service operations.
 
-## Production build
+---
 
-```bash
-npm run build
-npm start
-```
+### 💼 Work Experience
 
-## Deploy (Vercel — recommended)
+- 🏢 **Quality Assurance Specialist** | **PLAN A Agency** *(May 2023 – Present)*
+- 🏢 **Quality Assurance Engineer** | **TechnoWave** *(Mar 2021 – May 2023)*
+- 🏢 **Head of e-Citizen Service Centers** | **Syrian Telecom** *(Feb 2021 – May 2023)*
+- 🏢 **QA / QC & Customer Service Specialist** | **Al Boraq Telecom** *(Sep 2018 – Mar 2020)*
 
-1. Push this folder to a GitHub repository.
-2. Go to https://vercel.com/new, import the repo, keep the defaults (framework: Next.js) and click **Deploy**.
-3. Optional: add `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_FORMSPREE_ID` under *Project → Settings → Environment Variables*.
+---
 
-Or from the terminal: `npx vercel` (then `npx vercel --prod`).
+### 🎓 Education
 
-### Contact form delivery
+- **B.Sc. in Electronics and Communication Engineering**  
+  *Damascus University (2015 – 2021)*
 
-Create a free form at https://formspree.io, copy its ID into `NEXT_PUBLIC_FORMSPREE_ID`, and redeploy.
-Without it, submitting opens the visitor's email client with the message pre-filled.
+---
 
-## Project structure
+### 📊 GitHub Stats
 
-```
-src/
-  app/            layout (fonts, metadata, theme boot script), page, global tokens
-  components/     Nav, Hero, TestTerminal, About, Skills, Experience, Projects, Contact, Footer
-  components/ui/  Button, Magnetic, Spotlight, SectionHeading, Socials
-  data/           portfolio.ts  ← all content
-  lib/            gsap.ts (plugin registration), lenis.ts (smooth scroll helpers)
-```
+![Aliaa's GitHub Stats](https://github-readme-stats.vercel.app/api?username=aliaa-krado&show_icons=true&theme=radial)
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=aliaa-krado&layout=compact&theme=radial)
+
+---
+
+### 📫 Connect with Me
+
+- 📧 **Email:** [aliakrado@gmail.com](mailto:aliakrado@gmail.com)
+- 💼 **LinkedIn:** [linkedin.com/in/aliaa-krado-b962a6251](https://www.linkedin.com/in/aliaa-krado-b962a6251)
