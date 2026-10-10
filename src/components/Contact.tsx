@@ -48,7 +48,7 @@ function Field({
   textarea?: boolean;
 } & React.InputHTMLAttributes<HTMLInputElement> &
   React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
-  const cls = `peer w-full rounded-2xl border bg-bg/60 px-4 pt-6 pb-2.5 text-[15px] text-fg outline-none transition-colors duration-300 placeholder:text-transparent focus:border-accent focus:bg-bg ${
+  const cls = `peer min-w-0 w-full rounded-2xl border bg-bg/60 px-4 pt-6 pb-2.5 text-base text-fg outline-none transition-colors duration-300 placeholder:text-transparent focus:border-accent focus:bg-bg ${
     error ? "border-danger/70" : "border-line hover:border-line-strong"
   }`;
   const common = {
@@ -59,7 +59,7 @@ function Field({
     "aria-describedby": error ? `${id}-error` : undefined,
   };
   return (
-    <div>
+    <div className="min-w-0">
       <div className="relative">
         {textarea ? (
           <textarea {...common} {...rest} rows={5} className={`${cls} resize-none`} />
@@ -75,7 +75,7 @@ function Field({
       </div>
       {error && (
         <p id={`${id}-error`} className="mt-2 flex items-center gap-1.5 text-sm text-danger">
-          <WarningCircle size={15} aria-hidden /> {error}
+          <WarningCircle size={15} className="shrink-0" aria-hidden /> {error}
         </p>
       )}
     </div>
@@ -193,7 +193,7 @@ export default function Contact() {
           ))}
         </h2>
 
-        <div className="mt-16 grid gap-8 lg:grid-cols-[1fr_1.25fr] lg:gap-12">
+        <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:gap-12">
           {/* details */}
           <div data-contact-fade className="flex flex-col gap-4">
             <p className="max-w-md text-lg leading-relaxed text-muted">
@@ -202,13 +202,13 @@ export default function Contact() {
             </p>
 
             <Spotlight className="mt-4 rounded-3xl border border-line bg-surface p-2">
-              <div className="flex items-center gap-4 rounded-2xl p-4">
+              <div className="flex items-center gap-2 rounded-2xl p-3 sm:gap-4 sm:p-4">
                 <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-elev text-accent">
                   <EnvelopeSimple size={20} aria-hidden />
                 </span>
                 <div className="min-w-0 flex-1">
                   <p className="text-xs text-subtle">Email</p>
-                  <a href={`mailto:${profile.email}`} className="block truncate font-medium hover:text-accent">
+                  <a href={`mailto:${profile.email}`} className="block break-all font-medium hover:text-accent">
                     {profile.email}
                   </a>
                 </div>
@@ -216,7 +216,7 @@ export default function Contact() {
                   type="button"
                   onClick={copyEmail}
                   aria-label={copied ? "Email copied" : "Copy email address"}
-                  className="grid size-10 shrink-0 cursor-pointer place-items-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent"
+                  className="grid size-11 shrink-0 cursor-pointer place-items-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent"
                 >
                   {copied ? <Check size={16} weight="bold" aria-hidden /> : <Copy size={16} aria-hidden />}
                 </button>
@@ -293,7 +293,7 @@ export default function Contact() {
                   className="flex flex-col gap-4"
                   aria-label="Contact form"
                 >
-                  <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <Field
                       id="name"
                       label="Your name"

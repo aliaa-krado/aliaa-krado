@@ -88,10 +88,10 @@ export default function About() {
 
         <dl data-stats className="mt-20 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line lg:grid-cols-4">
           {about.stats.map((s) => (
-            <div key={s.label} data-stat className="bg-bg p-6 sm:p-8">
+            <div key={s.label} data-stat className="min-w-0 bg-bg p-4 sm:p-8">
               <dt className="sr-only">{s.label}</dt>
               <dd>
-                <span className="block text-5xl font-semibold tracking-[-0.04em] tabular-nums sm:text-6xl">
+                <span className="block text-4xl font-semibold tabular-nums sm:text-6xl">
                   <span data-count={s.noCount ? undefined : s.value}>{s.value}</span>
                   <span className="text-accent">{s.suffix}</span>
                 </span>

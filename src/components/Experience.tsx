@@ -66,7 +66,7 @@ export default function Experience() {
           {experience.map((job) => (
             <li key={job.company} data-job className="relative grid gap-4 pb-14 last:pb-0 md:grid-cols-[260px_1fr] md:gap-0">
               {/* meta column */}
-              <div data-job-meta className="pl-12 md:pt-1 md:pr-10 md:pl-0 md:text-right">
+              <div data-job-meta className="pl-8 sm:pl-12 md:pt-1 md:pr-10 md:pl-0 md:text-right">
                 <p className="font-mono text-sm text-accent">{job.roles[0].period}</p>
                 <p className="mt-1 text-lg font-semibold tracking-tight">{job.company}</p>
                 {job.location && (
@@ -86,10 +86,10 @@ export default function Experience() {
               </span>
 
               {/* card */}
-              <div className="pl-12">
+              <div className="min-w-0 pl-8 sm:pl-12">
                 <Spotlight
                   data-job-card
-                  className="rounded-3xl border border-line bg-surface p-6 transition-colors duration-500 hover:bg-elev/60 sm:p-8"
+                  className="rounded-3xl border border-line bg-surface p-5 transition-colors duration-500 hover:bg-elev/60 sm:p-8"
                 >
                   {job.current && (
                     <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-xs text-accent">

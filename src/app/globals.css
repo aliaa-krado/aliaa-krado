@@ -84,6 +84,12 @@
 }
 
 /* Lenis smooth scroll */
+.mobile-navigation {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+}
+
 html.lenis,
 html.lenis body {
   height: auto;

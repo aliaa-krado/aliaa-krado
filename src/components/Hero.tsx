@@ -159,7 +159,7 @@ export default function Hero() {
           </h1>
         </div>
 
-        <div className="mt-12 grid items-center gap-14 lg:mt-14 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
+        <div className="mt-12 grid grid-cols-1 items-center gap-14 lg:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-16">
           <div data-hero-copy>
             <p
               data-hero-fade
@@ -206,7 +206,7 @@ export default function Hero() {
               </Magnetic>
             </div>
 
-            <div data-hero-fade className="mt-10 flex items-center gap-5">
+            <div data-hero-fade className="mt-10 flex flex-wrap items-center gap-4 sm:gap-5">
               <Socials />
               <span aria-hidden className="h-px w-10 bg-line-strong" />
               <span className="font-mono text-xs tracking-wider text-subtle uppercase">

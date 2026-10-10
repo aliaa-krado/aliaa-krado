@@ -52,10 +52,25 @@ export default function Nav() {
 
   useEffect(() => {
     setScrollLocked(open);
+    const previousOverflow = document.body.style.overflow;
+    if (open) document.body.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      setScrollLocked(false);
+      window.removeEventListener("keydown", onKey);
+    };
   }, [open]);
+
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const closeOnDesktop = () => {
+      if (desktop.matches) setOpen(false);
+    };
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => desktop.removeEventListener("change", closeOnDesktop);
+  }, []);
 
   const toggleTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
@@ -69,6 +84,7 @@ export default function Nav() {
   const go = (id: string) => (e: React.MouseEvent) => {
     e.preventDefault();
     setOpen(false);
+    setScrollLocked(false);
     scrollToId(id);
   };
 
@@ -97,7 +113,7 @@ export default function Nav() {
           <a
             href="#top"
             onClick={go("top")}
-            className="flex cursor-pointer items-center gap-2.5 font-mono text-sm font-medium"
+            className="flex min-h-11 cursor-pointer items-center gap-2.5 font-mono text-sm font-medium"
             aria-label={`${profile.name} — back to top`}
           >
             <span className="grid size-8 place-items-center rounded-full bg-fg text-[11px] font-bold tracking-tight text-bg">
@@ -106,14 +122,14 @@ export default function Nav() {
             <span className="hidden sm:inline">{profile.name.toLowerCase().replace(" ", ".")}</span>
           </a>
 
-          <ul className="hidden items-center gap-1 md:flex">
+          <ul className="hidden items-center gap-1 lg:flex">
             {navLinks.slice(0, -1).map((l) => (
               <li key={l.id}>
                 <a
                   href={`#${l.id}`}
                   onClick={go(l.id)}
                   aria-current={active === l.id ? "true" : undefined}
-                  className={`relative block cursor-pointer rounded-full px-4 py-2 text-sm transition-colors duration-300 ${
+                  className={`relative flex min-h-11 cursor-pointer items-center rounded-full px-4 py-2 text-sm transition-colors duration-300 ${
                     active === l.id ? "text-fg" : "text-muted hover:text-fg"
                   }`}
                 >
@@ -135,7 +151,7 @@ export default function Nav() {
               type="button"
               onClick={toggleTheme}
               aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
-              className="grid size-10 cursor-pointer place-items-center rounded-full text-muted transition-colors hover:bg-elev hover:text-fg"
+              className="grid size-11 cursor-pointer place-items-center rounded-full text-muted transition-colors hover:bg-elev hover:text-fg"
             >
               <AnimatePresence mode="wait" initial={false}>
                 <motion.span
@@ -153,7 +169,7 @@ export default function Nav() {
             <a
               href="#contact"
               onClick={go("contact")}
-              className="hidden h-10 cursor-pointer items-center gap-1.5 rounded-full bg-fg px-4 text-sm font-medium text-bg transition-shadow duration-300 hover:shadow-[0_0_30px_-4px_var(--accent)] sm:inline-flex"
+              className="hidden h-11 cursor-pointer items-center gap-1.5 rounded-full bg-fg px-4 text-sm font-medium text-bg transition-shadow duration-300 hover:shadow-[0_0_30px_-4px_var(--accent)] sm:inline-flex"
             >
               Let&apos;s talk <ArrowUpRight size={14} weight="bold" aria-hidden />
             </a>
@@ -163,7 +179,7 @@ export default function Nav() {
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
               aria-controls="mobile-menu"
-              className="grid size-10 cursor-pointer place-items-center rounded-full text-fg hover:bg-elev md:hidden"
+              className="grid size-11 cursor-pointer place-items-center rounded-full text-fg hover:bg-elev lg:hidden"
             >
               {open ? <X size={20} aria-hidden /> : <List size={20} aria-hidden />}
             </button>
@@ -175,10 +191,11 @@ export default function Nav() {
         {open && (
           <motion.div
             id="mobile-menu"
+            data-lenis-prevent
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.2 } }}
-            className="fixed inset-0 z-40 bg-bg/95 px-6 pt-28 backdrop-blur-2xl md:hidden"
+            className="mobile-navigation fixed inset-0 z-40 bg-bg/95 px-6 pt-24 backdrop-blur-2xl lg:hidden"
           >
             <ul className="flex flex-col gap-2">
               {navLinks.map((l, i) => (
@@ -191,7 +208,7 @@ export default function Nav() {
                   <a
                     href={`#${l.id}`}
                     onClick={go(l.id)}
-                    className="flex cursor-pointer items-baseline gap-4 border-b border-line py-4 text-4xl font-semibold tracking-tight"
+                    className="flex min-h-11 cursor-pointer items-baseline gap-4 border-b border-line py-3 text-3xl font-semibold tracking-tight sm:text-4xl"
                   >
                     <span className="font-mono text-xs text-accent">0{i + 1}</span>
                     {l.label}

@@ -11,7 +11,7 @@ export function scrollToId(id: string) {
   const el = id === "top" ? document.body : document.getElementById(id);
   if (!el) return;
   if (instance) {
-    instance.scrollTo(id === "top" ? 0 : el, { offset: id === "top" ? 0 : -72, duration: 1.4 });
+    instance.scrollTo(id === "top" ? 0 : el, { duration: 1.4 });
   } else {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (id === "top") window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
